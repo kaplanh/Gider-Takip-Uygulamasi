@@ -142,3 +142,14 @@ temizleBtn.addEventListener("click", () => {
     hesaplaVeGuncelle(); //? sonuc tablosundaki (DOM) gelirler, giderler ve kalan degerleri sil.
   }
 });
+
+// !NOT:
+//?ikaz butonu alert'e alternatif
+//? html e eklenecek olan bu link ile calisiyor
+//? sweetalert icin link
+//? <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+// * Swal.fire({
+//*  icon: "warning",
+//*  title: "DiKKAT",
+//*  text: "Verileri silmek istediginizden emin misiniz?",
+//*  });
