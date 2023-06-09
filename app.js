@@ -143,7 +143,7 @@ temizleBtn.addEventListener("click", () => {
   }
 });
 
-// !NOT:
+// !=====================sweetalert :========================
 //?ikaz butonu alert'e alternatif
 //? html e eklenecek olan bu link ile calisiyor
 //? sweetalert icin link
