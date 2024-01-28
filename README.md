@@ -43,34 +43,65 @@ Monthly Expense Tracking Application (folder)
             crossorigin="anonymous"
         />
    - for sweetalert script
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+   Swal.fire({
+             icon: "warning",
+             title: "DiKKAT",
+             text: "Verileri silmek istediginizden emin misiniz?",
+            })
    ```
  
 - CSS
-
-  - flexbox
-  - @media queries
-  - -Nexted Css
-    ```
-    
-    h1:{
-     transition: scale 1.02s;
-     &:hover{
-       scale: 1.2;
-           }
-    }
-    ```
+  ```
+  - background
+     body{
+     background-image: url('./images/backgroundImg.jpg');
+     background-repeat: no-repeat;
+     background-size: 100% 100%;
+        }
+  ```
+-Bootstrap
+ - Bootstrap form
+ - Bootstrap table
+ - Bootstrap Grid (Row-Col)
+  
+  
 
 - JS
   - DOM Manipulations
   - DOM Selectors
+     - querySelector('#id')
   - Events
-  - addEventListener("event",(event)=>{})
-  - Functions(Math.floor(Math.random() * 100 + 1) //1 <= x < 100 )
+     - load
+     - click
+     - submit
+  - Builtin functions
+     - preventDefault()
+     - reset()
+     - remove()  
   - if else - if - else conditions
   - Logical operators && and ||
+  - LocalStorage
+     - localStorage.setItem("variable", primitiveValue)
+     - localStorage.getItem("variable")
+       
+     - localStorage.setItem("variable", JSON.stringify(nonPrimitiveValue))
+     - JSON.parse(localStorage.getItem("variable")) || []
+  - Date()
+     - new Date().getTime()
+     - dateInput.valueAsDate = new Date();//Tarih inputunu bugunki tarih ile yukle
+   
+  - Array Methods
+     - harcamaListesi = harcamaListesi.filter((harcama) => harcama.id != id);
+     - Arr.forEach((item) => harcamayiDomaYaz(item))
+     - Arr.reduce((toplam, harcama) => toplam + Number(harcama.miktar),0);
+  - Capturing
+     - e.target.classList.contains("fa-trash-can")//tiklananlardan class'i fa-trash-can olanlari yakala.
+     - e.target.parentElement.parentElement.remove(); //parent'inin parentini sil.
+  -confirm()
+     - if (confirm("Silmek istediginize emin misiniz?"))
 
+    
 
 ### At the end of the project, developers will be able to;
 
@@ -81,7 +112,7 @@ Monthly Expense Tracking Application (folder)
 
 ## Notes
 
-- You can use HTML, CSS and JS to complete this project.
+- You can use HTML, CSS, Bootstrap and JS to complete this project.
 
 
 
