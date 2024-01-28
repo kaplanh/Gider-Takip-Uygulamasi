@@ -1,4 +1,5 @@
-//? Selectors
+//?========================Selectors==========================
+//? gelirInputForm
 const ekleBtn = document.getElementById("ekle-btn");
 const gelirInput = document.getElementById("gelir-input");
 const ekleFormu = document.getElementById("ekle-formu");
@@ -18,6 +19,7 @@ const miktarInput = document.getElementById("miktar");
 const harcamaBody = document.getElementById("harcama-body");
 const temizleBtn = document.getElementById("temizle-btn");
 
+//?========================Selectors==========================
 //? Variables
 let gelirler = 0;
 
@@ -28,79 +30,81 @@ let harcamaListesi = [];
 
 //! Formun submit butonuna basildiginda
 ekleFormu.addEventListener("submit", (e) => {
-  e.preventDefault(); //? reload'u engeller
-  gelirler = gelirler + Number(gelirInput.value); //? string eklemiyi engelledik
+    e.preventDefault(); //? reload'u engeller
+    gelirler = gelirler + Number(gelirInput.value); //? string eklemiyi engelledik
 
-  //? gelirlerin kalıcı olmasi icin localStorage a kopyaliyoruz
-  localStorage.setItem("gelirler", gelirler);
+    //? gelirlerin kalıcı olmasi icin localStorage a kopyaliyoruz
+    localStorage.setItem("gelirler", gelirler);
 
-  //? input degerini sifrladik
-  ekleFormu.reset();
+    //? input degerini sifrladik
+    ekleFormu.reset();
 
-  //? Degisiklikleri sonuc tablosuna yazan fonks.
-  hesaplaVeGuncelle();
+    //? Degisiklikleri sonuc tablosuna yazan fonks.
+    hesaplaVeGuncelle();
 });
 
 //! Sayfa her yuklendikten sonra calisan event
 window.addEventListener("load", () => {
-  //? gelirler bilgisini local storage'dan okuyarak global degiskenimize yaz
-  gelirler = Number(localStorage.getItem("gelirler"));
+    //? gelirler bilgisini local storage'dan okuyarak global degiskenimize yaz
+    gelirler = Number(localStorage.getItem("gelirler"));
 
-  //? localStroge'den harcama listesini okuyarak global dizimize saklıyoruz.
-  harcamaListesi = JSON.parse(localStorage.getItem("harcamalar")) || [];
+    //? localStroge'den harcama listesini okuyarak global dizimize saklıyoruz.
+    harcamaListesi = JSON.parse(localStorage.getItem("harcamalar")) || [];
 
-  //? harcama dizisinin icindeki objleri tek tek DOMa yaziyoruz.
-  harcamaListesi.forEach((harcama) => harcamayiDomaYaz(harcama));
+    //? harcama dizisinin icindeki objleri tek tek DOMa yaziyoruz.
+    harcamaListesi.forEach((harcama) => harcamayiDomaYaz(harcama));
 
-  console.log(harcamaListesi);
-  //? Tarih inputunu bugun deger ile yukle
-  tarihInput.valueAsDate = new Date();
+    console.log(harcamaListesi);
+    //? Tarih inputunu bugun deger ile yukle
+    tarihInput.valueAsDate = new Date();
 
-  //? Degisen bilgileri hesapla ve DOM'a bas
-  hesaplaVeGuncelle();
+    //? Degisen bilgileri hesapla ve DOM'a bas
+    hesaplaVeGuncelle();
 });
 
 //! harcama formu submit edildiginde calisir
 harcamaFormu.addEventListener("submit", (e) => {
-  e.preventDefault(); //? reload'u engelle
+    e.preventDefault(); //? reload'u engelle
 
-  //? yeni harcama bilgileri ile bir obje olusutur
-  const yeniHarcama = {
-    id: new Date().getTime(), //? Sistem saatini (ms olarak) verir. Unique gibidir.
-    tarih: tarihInput.value,
-    alan: harcamaAlaniInput.value,
-    miktar: miktarInput.value,
-  };
+    //? yeni harcama bilgileri ile bir obje olusutur
+    const yeniHarcama = {
+        id: new Date().getTime(), //? Sistem saatini (ms olarak) verir. Unique gibidir.
+        tarih: tarihInput.value,
+        alan: harcamaAlaniInput.value,
+        miktar: miktarInput.value,
+    };
 
-  //? yeni harcama objesini diziye ekle
-  harcamaListesi.push(yeniHarcama);
+    //? yeni harcama objesini diziye ekle
+    harcamaListesi.push(yeniHarcama);
 
-  //? dizisin son halini localStorage e gonder.
-  localStorage.setItem("harcamalar", JSON.stringify(harcamaListesi));
+    //? dizisin son halini localStorage e gonder.
+    //?number string gibi veriler localStorage e gönderilirken stringe cevrilebilirken obje veya array ler JSON.stringify() methodu yardimi ile stringe cevrilir ve stringden array veya objeye döndürmek icinde JSON.pars() kullanilir
+    localStorage.setItem("harcamalar", JSON.stringify(harcamaListesi));
 
-  harcamayiDomaYaz(yeniHarcama);
+    harcamayiDomaYaz(yeniHarcama);
 
-  hesaplaVeGuncelle();
+    hesaplaVeGuncelle();
 
-  //? Formdaki verileri sil
-  harcamaFormu.reset();
-  tarihInput.valueAsDate = new Date();
+    //? Formdaki verileri sil
+    harcamaFormu.reset();
+    tarihInput.valueAsDate = new Date();
 });
 
 const hesaplaVeGuncelle = () => {
-  const giderler = harcamaListesi.reduce(
-    (toplam, harcama) => toplam + Number(harcama.miktar),
-    0
-  );
+    // ?harcamaListesi arrayi icindeki her objedeki gider miktarini reduce() metodu ile topladik
+    const giderler = harcamaListesi.reduce(
+        (toplam, harcama) => toplam + Number(harcama.miktar),
+        0
+    );
 
-  gelirinizTd.innerText = gelirler;
-  giderinizTd.innerText = giderler;
-  kalanTd.innerText = gelirler - giderler;
+    gelirinizTd.innerText = gelirler;
+    giderinizTd.innerText = giderler;
+    kalanTd.innerText = gelirler - giderler;
 };
 
 const harcamayiDomaYaz = ({ id, miktar, tarih, alan }) => {
-  // const { id, miktar, tarih, alan } = yeniHarcama
-  harcamaBody.innerHTML += `
+    // const { id, miktar, tarih, alan } = yeniHarcama
+    harcamaBody.innerHTML += `
   <tr>
     <td>${tarih}</td>
     <td>${alan}</td>
@@ -111,45 +115,63 @@ const harcamayiDomaYaz = ({ id, miktar, tarih, alan }) => {
 };
 //! Harcama tablosunda herhangi bir alana tiklanildiginda calisir.
 harcamaBody.addEventListener("click", (e) => {
-  // console.log(e.target)
+    // console.log(e.target)
 
-  //? Tiklama sil butonlarindan geldi ise
-  if (e.target.classList.contains("fa-trash-can")) {
-    //? DOM'dan ilgili row'u sildik.
-    e.target.parentElement.parentElement.remove();
+    //? Tiklama sil butonlarindan geldi ise
+    if (e.target.classList.contains("fa-trash-can")) {
+        //? DOM'dan ilgili row'u sildik.
+        e.target.parentElement.parentElement.remove();
 
-    const id = e.target.id;
-    console.log(id);
+        const id = e.target.id;
+        console.log(id);
 
-    //? Dizideki ilgili objeyi sildik.
-    harcamaListesi = harcamaListesi.filter((harcama) => harcama.id != id);
+        //? Dizideki ilgili objeyi sildik.
+        harcamaListesi = harcamaListesi.filter((harcama) => harcama.id != id);
 
-    //? Silinmis yeni diziyi Local Storage aktardik.
-    localStorage.setItem("harcamalar", JSON.stringify(harcamaListesi));
+        //? Silinmis yeni diziyi Local Storage aktardik.
+        localStorage.setItem("harcamalar", JSON.stringify(harcamaListesi));
 
-    //? her satir silindikten sonra yeni degerleri hesapla ve DOM'a yaz
-    hesaplaVeGuncelle();
-  }
+        //? her satir silindikten sonra yeni degerleri hesapla ve DOM'a yaz
+        hesaplaVeGuncelle();
+    }
 });
 
 //? temizle butonına basildigi zaman calis
 temizleBtn.addEventListener("click", () => {
-  if (confirm("Silmek istedigine emin misiniz?")) {
-    harcamaListesi = []; //? RAM'deki harcama listesini sil
-    gelirler = 0; //? RAM'deki gelirleri sil
-    localStorage.clear(); //? local straoge'daki tüm verileri sil
-    harcamaBody.innerHTML = ""; //? DOM'daki tüm harcamlar sil
-    hesaplaVeGuncelle(); //? sonuc tablosundaki (DOM) gelirler, giderler ve kalan degerleri sil.
-  }
+    if (confirm("Silmek istediginize emin misiniz?")) {
+        harcamaListesi = []; //? RAM'deki harcama listesini sil
+        gelirler = 0; //? RAM'deki gelirleri sil
+        localStorage.clear(); //? local straoge'daki tüm verileri sil
+        harcamaBody.innerHTML = ""; //? DOM'daki tüm harcamlar sil
+        hesaplaVeGuncelle(); //? sonuc tablosundaki (DOM) gelirler, giderler ve kalan degerleri sil.
+    }
 });
 
-// !=====================sweetalert :========================
-//?ikaz butonu alert'e alternatif
-//? html e eklenecek olan bu link ile calisiyor
-//? sweetalert icin link
-//? <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-// * Swal.fire({
-//*  icon: "warning",
-//*  title: "DiKKAT",
-//*  text: "Verileri silmek istediginizden emin misiniz?",
-//*  });
+// !comfirm('message') e alternatif sweetalert
+
+//? temizle butonına basildigi zaman calis
+// temizleBtn.addEventListener("click", () => {
+//     if (
+//         Swal.fire({
+//             icon: "warning",
+//             title: "DiKKAT",
+//             text: "Verileri silmek istediginizden emin misiniz?",
+//         })
+//     ) {
+//         harcamaListesi = []; //? RAM'deki harcama listesini sil
+//         gelirler = 0; //? RAM'deki gelirleri sil
+//         localStorage.clear(); //? local straoge'daki tüm verileri sil
+//         harcamaBody.innerHTML = ""; //? DOM'daki tüm harcamlar sil
+//         hesaplaVeGuncelle(); //? sonuc tablosundaki (DOM) gelirler, giderler ve kalan degerleri sil.
+//     }
+// });
+
+// !=====comfirm('message') e alternatif sweetalert :========
+//? 1-html de body icinde hemen app.js üstündeki satira bu script i ekliyoruz  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+//? 2-app.js icinde kulanmak istedigimiz yerde asagidaki variable lara value lar atayarak kullaniyruz
+// Swal.fire({
+//icon: "warning",
+// title: "DiKKAT",
+// text: "Verileri silmek istediginizden emin misiniz?",
+// });
