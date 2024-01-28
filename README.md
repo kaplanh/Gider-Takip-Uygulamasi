@@ -37,13 +37,18 @@ Monthly Expense Tracking Application (folder)
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
-   - for Bootstrap cdnjs link
+   - for Bootstrap cdnjs link & script
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
             crossorigin="anonymous"
         />
+   <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
    - for sweetalert script
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
    Swal.fire({
