@@ -1,6 +1,8 @@
 # Monthly Expense Tracking Application with JS
+
+![Gider Takip Uygulamasi](https://github.com/kaplanh/Aylik-Gider-Takip-Uygulamasi/assets/101884444/5383ad7b-22cd-49c0-a391-9736c52d1ab1)
+
 [Click Me!](https://kaplanh.github.io/Aylik-Gider-Takip-Uygulamasi/)
-![aylik gider uygulamasi]()
 
 ## Description
 
